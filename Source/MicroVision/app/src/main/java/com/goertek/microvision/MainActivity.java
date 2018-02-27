@@ -25,24 +25,8 @@ import android.widget.Toast;
 
 import com.goertek.microvision.adapter.NavDrawerListAdapter;
 import com.goertek.microvision.entity.NavDrawerItem;
-import com.goertek.microvision.fragment.ActiveCaptureMode;
-import com.goertek.microvision.fragment.Brightness;
-import com.goertek.microvision.fragment.ColorAlignment;
-import com.goertek.microvision.fragment.ColorMode;
-import com.goertek.microvision.fragment.FlipImage;
-import com.goertek.microvision.fragment.Functions;
-import com.goertek.microvision.fragment.GammaVal;
-import com.goertek.microvision.fragment.GetEventLog;
-import com.goertek.microvision.fragment.HomeFragment;
-import com.goertek.microvision.fragment.InputCaptureMode;
-import com.goertek.microvision.fragment.InputVideoProperties;
-import com.goertek.microvision.fragment.InputVideoState;
-import com.goertek.microvision.fragment.KeyStone;
-import com.goertek.microvision.fragment.OutputVideoState;
-import com.goertek.microvision.fragment.Phase;
-import com.goertek.microvision.fragment.SystemInfo;
-import com.goertek.microvision.fragment.SystemStatus;
-//import com.goertek.microvision.fragment.UsbDebug;
+import com.goertek.microvision.fragment.*;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,21 +68,24 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
 
         mPicoPLibraryInfo = new PicoP_LibraryInfo();
         mContext = this.getApplication();
 
         // For serial port
-        mPicoPHandler = new PicoP_Handle(eRS232);
-        connectionInfo = mPicoPHandler.getConnectInfo();
-        /*connectionInfo.setRS232Info("/dev/ttyS0", 57600);*/
-        connectionInfo.setRS232Info("/dev/ttyMT1", 57600);
+//        mPicoPHandler = new PicoP_Handle(eRS232);
+//        connectionInfo = mPicoPHandler.getConnectInfo();
+//        /*connectionInfo.setRS232Info("/dev/ttyS0", 57600);*/
+//        connectionInfo.setRS232Info("/dev/ttyMT1", 57600);
 
         // For USB port
-        /*mPicoPHandler = new PicoP_Handle(eUSB);
+        mPicoPHandler = new PicoP_Handle(eUSB);
         connectionInfo = mPicoPHandler.getConnectInfo();
-        connectionInfo.setUsbInfo(mContext);*/
+        connectionInfo.setConnectionContext(mContext);
 
         findView();
         if (savedInstanceState == null) {
@@ -118,7 +105,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
     @SuppressLint("NewApi")
     private void findView() {
 
-        Log.e("MainActivity", "findView() enter!");
+        Log.i("MainActivity", "findView() enter!");
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -137,6 +124,7 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
 
         // adding nav drawer items to array
         // Home
+
         mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[0], mNavMenuIconsTypeArray
                 .getResourceId(0, -1)));
         // Brightness
@@ -186,6 +174,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
                 .getResourceId(15, -1)));
         mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[16], mNavMenuIconsTypeArray
                 .getResourceId(16, -1)));
+
+        mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[17], mNavMenuIconsTypeArray
+                .getResourceId(17, -1)));
 
         // Recycle the typed array
         mNavMenuIconsTypeArray.recycle();
@@ -341,6 +332,9 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
                 break;
             case 16:
                 fragment = new HomeFragment();
+                break;
+            case 17:
+                fragment = new TestPattern();
                 break;
             default:
                 break;

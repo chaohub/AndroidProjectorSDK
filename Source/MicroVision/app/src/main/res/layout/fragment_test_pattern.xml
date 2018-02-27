@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:pikolo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.goertek.microvision.fragment.TestPattern">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RadioGroup
+            android:id="@+id/radio_group_pattern_picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/radio_btn_checker_board"
+                style="@style/RadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/checker_board_pattern" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_splash_screen"
+                style="@style/RadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Splash Screen" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_grid_pattern"
+                style="@style/RadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Grid Pattern 16x12" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_cross_hair"
+                style="@style/RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" Cross Hair Pattern" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_all_on"
+                style="@style/RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="All On" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_all_off"
+                style="@style/RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="All Off" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_nine_point"
+                style="@style/RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" Nine Point Pattern" />
+        </RadioGroup>
+
+
+
+        <TextView
+            android:id="@+id/foregroundColorLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Foreground Color"/>
+
+        <TextView
+            android:id="@+id/foregroundColorSelectedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RGB"/>
+
+        <com.madrapps.pikolo.HSLColorPicker
+            android:id="@+id/colorPicker"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="0dp"
+            pikolo:arc_length="110"
+            pikolo:hue_start_angle="30"
+            pikolo:lightness_start_angle="270"
+            pikolo:radius_offset="20dp"
+            pikolo:saturation_indicator_stroke_color="@color/colorPrimary"
+            pikolo:saturation_start_angle="150"  />
+
+        <Button
+            android:id="@+id/btn_draw_test_pattern"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Draw" />
+
+    </LinearLayout>
+
+</FrameLayout>

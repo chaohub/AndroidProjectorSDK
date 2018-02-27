@@ -1,7 +1,9 @@
 package com.goertek.microvision;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import picop.interfaces.def.PicoP_RenderTargetE;
 import picop.interfaces.def.PicoP_SystemInfo;
 import picop.interfaces.def.PicoP_SystemStatus;
 import picop.interfaces.def.PicoP_TestPatternInfoE;
+import picop.interfaces.def.PicoP_Ulog;
 import picop.interfaces.def.PicoP_ValueStorageTypeE;
 import picop.interfaces.def.PicoP_VideoCaptureInfo;
 import picop.interfaces.def.PicoP_VideoModeHandleE;
@@ -53,7 +56,7 @@ import static com.goertek.microvision.Utils.MSG_GET_DRAWRECTANGLE;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTESTPATTERN;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTEXT;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTRIANGLE;
-import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
+//import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
 import static com.goertek.microvision.Utils.MSG_GET_EVENTLOG;
 import static com.goertek.microvision.Utils.MSG_GET_FLIPSTATE;
 import static com.goertek.microvision.Utils.MSG_GET_GAMMAVAL;
@@ -72,7 +75,7 @@ import static com.goertek.microvision.Utils.MSG_GET_SPLASHSCREENTIMEOUT;
 import static com.goertek.microvision.Utils.MSG_GET_SYSTEMINFO;
 import static com.goertek.microvision.Utils.MSG_GET_SYSTEMSTATUS;
 import static com.goertek.microvision.Utils.MSG_GET_TEXTBOXINFO;
-import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
+//import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
 import static com.goertek.microvision.Utils.MSG_GET_VIEWPORTDISTORTION;
 import static com.goertek.microvision.Utils.MSG_MODIFY_INPUTCAPTUREMODEINFO;
 import static com.goertek.microvision.Utils.MSG_SET_ACTIVECAPTUREMODE;
@@ -144,6 +147,10 @@ import static picop.interfaces.def.PicoP_PpcpUtils.MAX_EVENT_LOG;
  */
 
 public class MessageCenter {
+
+
+
+
     private static final String TAG = "MessageCenter";
     public static PicoP_VideoModeHandleE videoMode  = PicoP_VideoModeHandleE.eVideoModeHandle_640x480;
     public static PicoP_ColorModeE colorMode = PicoP_ColorModeE.eCOLOR_MODE_BRILLIANT;
@@ -221,9 +228,17 @@ public class MessageCenter {
         }
     };
 
-    public static Handler messageHandler = new Handler(){
-        // when handler.message() called, below code will be triggered.
-        public void handleMessage(Message msg){
+    private static HandlerThread handlerThread = new HandlerThread("MessageHandlerThread");
+
+    static {
+        handlerThread.start();
+    }
+
+    public static Handler messageHandler = new Handler( handlerThread.getLooper(),
+            new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            PicoP_Ulog.d(TAG, "Handler is handerling a message");
             //super.handleMessage(msg);
             switch(msg.what) {
                 case MSG_SET_BRIGHTNESS:{
@@ -514,11 +529,11 @@ public class MessageCenter {
                     Log.i(TAG, "received message to get splashScreenTimeout");
                     break;
                 }
-                case MSG_GET_ENUMERATEDEVICES: {
-                    doGetEnumerateDevices();
-                    Log.i(TAG, "received message to get enumerateDevices");
-                    break;
-                }
+//                case MSG_GET_ENUMERATEDEVICES: {
+//                    doGetEnumerateDevices();
+//                    Log.i(TAG, "received message to get enumerateDevices");
+//                    break;
+//                }
                 case MSG_GET_DISPLAYINFO: {
                     doGetDisplayInfo();
                     Log.i(TAG, "received message to get displayInfo");
@@ -545,8 +560,18 @@ public class MessageCenter {
                     break;
                 }
                 case MSG_GET_DRAWTESTPATTERN: {
-                    doGetDrawTestPattern();
-                    Log.i(TAG, "received message to get drawTestPattern");
+                    int patternInt = msg.getData().getInt("pattern");
+                    PicoP_TestPatternInfoE pattern = PicoP_TestPatternInfoE.values()[patternInt];
+
+                    int foregroundColor = msg.getData().getInt("color");
+                    PicoP_Color color = new PicoP_Color();
+                    color.R = (byte) Color.red(foregroundColor);
+                    color.G = (byte)Color.green(foregroundColor);
+                    color.B = (byte)Color.blue(foregroundColor);
+                    color.A = (byte)0xff;
+
+                    doGetDrawTestPattern(pattern, color);
+                    Log.i(TAG, "Finished handling message to drawTestPattern");
                     break;
                 }
                 case MSG_GET_DRAWTEXT: {
@@ -579,13 +604,13 @@ public class MessageCenter {
                     Log.i(TAG, "received message to get restoreFactoryConfig");
                     break;
                 }
-                case MSG_GET_UPGRADESOFTWARE: {
-                    doGetUpgradeSoftware();
-                    Log.i(TAG, "received message to get upgradeSoftware");
-                    break;
-                }
+//                case MSG_GET_UPGRADESOFTWARE: {
+//                    doGetUpgradeSoftware();
+//                    Log.i(TAG, "received message to get upgradeSoftware");
+//                    break;
+//                }
                 case MSG_FUNCTIONS_TEMPERATURE_LOOP_GET: {
-                    doGetTemperatureLoop();
+                    doGetTemperature();
                     Log.i(TAG, "received message to get temperatureLoop");
                     break;
                 }
@@ -595,9 +620,11 @@ public class MessageCenter {
                     break;
                 }
             }
-        }
 
-    };
+            return true;
+        }
+    });
+
 
     private static boolean doInit() {
         PicoP_RC ret = ALC_Api.PicoP_ALC_OpenLibrary(mPicoPHandler);
@@ -606,9 +633,11 @@ public class MessageCenter {
             return false;
         }
         // For serial port
-        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eRS232, connectionInfo);
+//        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eRS232, connectionInfo);
+
+
         // For USB port
-        /*ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eUSB, connectionInfo);*/
+        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eUSB, connectionInfo);
 
         if(PicoP_RC.eSUCCESS!=ret){
             SERIAL_PORT_OPENED = false;
@@ -621,14 +650,11 @@ public class MessageCenter {
     }
 
     private static boolean doClose() {
-        PicoP_RC ret = ALC_Api.PicoP_ALC_CloseConnection(mPicoPHandler, PicoP_ConnectionTypeE.eRS232);
+//        PicoP_RC ret = ALC_Api.PicoP_ALC_CloseConnection(mPicoPHandler, PicoP_ConnectionTypeE.eRS232);
+        PicoP_RC ret = ALC_Api.PicoP_ALC_CloseConnection(mPicoPHandler, PicoP_ConnectionTypeE.eUSB);
+
         SERIAL_PORT_OPENED = false;
         return true;
-    }
-
-    private static void doToast(String str){
-        Log.i(TAG,"result = " + str);
-        Toast.makeText(mContext, "cmd exec result is " + str, Toast.LENGTH_SHORT).show();
     }
 
     private static void doSetBrightness(float brightness, boolean commit){
@@ -640,7 +666,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetBrightnessVal(mPicoPHandler, brightness, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetBrightness(int type){
@@ -691,7 +716,6 @@ public class MessageCenter {
                 }
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetColorMode(int type){
@@ -722,7 +746,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_CorrectKeystone(mPicoPHandler, keystone, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetkeyStone(int type){
@@ -747,12 +770,11 @@ public class MessageCenter {
         RC_FOR_SEND = PicoP_RC.eFAILURE;
         if(SERIAL_PORT_OPENED){
             RC_FOR_SEND = ALC_Api.PicoP_ALC_SetColorAlignment(mPicoPHandler,intToDirection(direction), intToColor(color), (short)coloralignment, commit);
-        } else{
-            if(doInit()) {
+        } else {
+            if (doInit()) {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetColorAlignment(mPicoPHandler, intToDirection(direction), intToColor(color), (short) coloralignment, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetcoloralign(int direction, int color, int type){
@@ -784,7 +806,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetPhase(mPicoPHandler, (short)phase, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetphase(int type){
@@ -814,7 +835,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetActiveCaptureMode(mPicoPHandler, videoMode.inttoEnum(mode));
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetactivecapturemode(){
@@ -848,7 +868,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_FlipImage(mPicoPHandler, intToDirection(direction));
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doSetInputCaptureModeInfo(){
@@ -861,7 +880,6 @@ public class MessageCenter {
             }
         }
 
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doModifyInputCaptureModeInfo(){
@@ -874,7 +892,6 @@ public class MessageCenter {
             }
         }
 
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetInputCaptureModeInfo(int videomode){
@@ -955,7 +972,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetGammaVal(mPicoPHandler, intToColor(color),gammaVal, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetGammaval(int type, int color){
@@ -985,7 +1001,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetOutputVideoState(mPicoPHandler, intToOutputVideoState(state), commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
     private static void doGetOutputVideoState(int state, int storageType){
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1012,7 +1027,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetInputVideoState(mPicoPHandler, intToInputVideoState(state));
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
     private static void doGetInputVideoState(int state){
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1064,7 +1078,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetViewportDistortion(mPicoPHandler, offsetTopLeft, fOffsetTopRight, fOffsetLowerLeft, fOffsetLowerRight, bCommit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetViewportDistortion() {
@@ -1097,7 +1110,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetAspectRatioMode(mPicoPHandler, aspectRatio, bCommit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetAspectRatioMode() {
@@ -1128,7 +1140,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetFlipState(mPicoPHandler, flipState, bCommit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetFlipState() {
@@ -1162,7 +1173,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetColorConverter(mPicoPHandler, color, offset, commit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetColorConverter() {
@@ -1195,7 +1205,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_CommitInputCaptureMode(mPicoPHandler, mVideoMode);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetCommitInputCaptureMode() {
@@ -1224,7 +1233,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetActiveOSD(mPicoPHandler, target);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetActiveOSD() {
@@ -1258,7 +1266,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetOSDInfo(mPicoPHandler, startPoint, size);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetOSDInfo() {
@@ -1294,7 +1301,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetOSDState(mPicoPHandler, osdState);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetOSDState() {
@@ -1325,7 +1331,6 @@ public class MessageCenter {
                 RC_FOR_SEND = ALC_Api.PicoP_ALC_SetSplashScreenTimeout(mPicoPHandler, nTimeout, bCommit);
             }
         }
-        doToast(RC_FOR_SEND.toString());
     }
 
     private static void doGetSplashScreenTimeout() {
@@ -1344,16 +1349,16 @@ public class MessageCenter {
         msg.setData(b);
         functionsHandler.sendMessage(msg);
     }
-    private static void doGetEnumerateDevices() {
-        RC_FOR_GET = PicoP_RC.eFAILURE;
-        if (SERIAL_PORT_OPENED) {
-            //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
-        } else {
-            if (doInit()) {
-                //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
-            }
-        }
-    }
+//    private static void doGetEnumerateDevices() {
+//        RC_FOR_GET = PicoP_RC.eFAILURE;
+//        if (SERIAL_PORT_OPENED) {
+//            //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
+//        } else {
+//            if (doInit()) {
+//                //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
+//            }
+//        }
+//    }
     private static void doGetDisplayInfo() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
         PicoP_RenderTargetE target = PicoP_RenderTargetE.eOSD_0;
@@ -1405,7 +1410,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_ClearTarget(mPicoPHandler, target);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetLoadBitmapImage() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1426,7 +1430,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_LoadBitmapImage(mPicoPHandler, target, startPoint, size, image, nSize);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetRender() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1437,41 +1440,30 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_Render(mPicoPHandler);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
 
-    private static void doGetDrawTestPattern() {
+    private static void doGetDrawTestPattern(PicoP_TestPatternInfoE pattern, PicoP_Color foregroundColor) {
         RC_FOR_GET = PicoP_RC.eFAILURE;
         PicoP_RenderTargetE target = PicoP_RenderTargetE.eFRAME_BUFFER_0;
         PicoP_Point startPoint = new PicoP_Point();
         startPoint.setPicoP_Point((short)0, (short)0);
         PicoP_RectSize size = new PicoP_RectSize();
         size.setPicoP_RectSize((short)1024, (short)720);
-        PicoP_Color color = new PicoP_Color();
-        color.R = (byte)0xff;
-        color.G = (byte)0xff;
-        color.B = (byte)0xff;
-        color.A = (byte)0xff;
         PicoP_Color backgroundColor = new PicoP_Color();
         backgroundColor.R = (byte)0x00;
         backgroundColor.G = (byte)0x00;
         backgroundColor.B = (byte)0x00;
         backgroundColor.A = (byte)0x00;
-        PicoP_TestPatternInfoE pattern = PicoP_TestPatternInfoE.eCHECKER_BOARD_PATTERN;
-        PicoP_OutputVideoStateE state = PicoP_OutputVideoStateE.eOUTPUT_VIDEO_DISABLED;
-        if (SERIAL_PORT_OPENED) {
-            RC_FOR_SEND = ALC_Api.PicoP_ALC_SetOutputVideoState(mPicoPHandler, state, false);
-            if (RC_FOR_SEND != PicoP_RC.eSUCCESS)
-            {
-                Log.e("Message center", "set output video state failed.");
-            }
-            RC_FOR_GET = ALC_Api.PicoP_ALC_DrawTestPattern(mPicoPHandler, target, startPoint, size, color, backgroundColor, pattern);
-        } else {
-            if (doInit()) {
-                RC_FOR_GET = ALC_Api.PicoP_ALC_DrawTestPattern(mPicoPHandler, target, startPoint, size, color, backgroundColor, pattern);
+//        PicoP_OutputVideoStateE state = PicoP_OutputVideoStateE.eOUTPUT_VIDEO_DISABLED;
+
+        if (!SERIAL_PORT_OPENED) {
+            if(!doInit()){
+                return;
             }
         }
-        doToast(RC_FOR_GET.toString());
+
+        RC_FOR_GET = ALC_Api.PicoP_ALC_DrawTestPattern(mPicoPHandler, target, startPoint, size, foregroundColor, backgroundColor, pattern);
+
     }
     private static void doGetDrawText() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1497,7 +1489,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_DrawText(mPicoPHandler, target, text, (short)text.length, startPoint, textColor, backgroundColor);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetDrawPoint() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1516,7 +1507,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_DrawPoint(mPicoPHandler, target, pixel, color);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetDrawLine() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1537,7 +1527,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_DrawLine(mPicoPHandler, target, pointA, pointB, color);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetDrawTriangle() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1561,7 +1550,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_DrawTriangle(mPicoPHandler, target, pointA, pointB, pointC, fillColor);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetDrawRectangle() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1582,7 +1570,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_DrawRectangle(mPicoPHandler, target, point, size, fillColor);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     // TODO: commit
     private static void doRestoreFactoryConfig() {
@@ -1595,7 +1582,6 @@ public class MessageCenter {
                 RC_FOR_GET = ALC_Api.PicoP_ALC_RestoreFactoryConfig(mPicoPHandler, bCommit);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
     private static void doGetUpgradeSoftware() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
@@ -1606,32 +1592,17 @@ public class MessageCenter {
                 //RC_FOR_GET = ALC_Api.PicoP_ALC_UpgradeSoftware(mPicoPHandler, image, nSize, callback);
             }
         }
-        doToast(RC_FOR_GET.toString());
     }
-    private static void doGetTemperatureLoop(){
+    private static void doGetTemperature(){
         RC_FOR_GET = PicoP_RC.eFAILURE;
         if(SERIAL_PORT_OPENED){
             RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler,systemStatus);
         } else{
             if(doInit()) {
-                for(int i = 0; systemStatus.getTemperature() <= 60; i++) {
-                    RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler, systemStatus);
-                    Log.i("MessageCenter", "temperature = " + systemStatus.getTemperature());
-                    Log.i("MessageCenter", "i = " + i);
-                    try {
-                        Thread.sleep(2000);
-                    }
-                    catch (Exception e)
-                    {}
-                }
+                RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler, systemStatus);
+                Log.i("MessageCenter", "temperature = " + systemStatus.getTemperature());
             }
         }
-        Message msg = systemstatusHandler.obtainMessage(MSG_GET_SYSTEMSTATUS_RESPONSE_GET);
-        Bundle b = new Bundle();
-        b.putInt("result", RC_FOR_GET.enumtoInt(RC_FOR_GET));
-        b.putString("STR",RC_FOR_GET.toString());
-        msg.setData(b);
-        systemstatusHandler.sendMessage(msg);
     }
 
     private static int PicoP_RC_To_Int(PicoP_RC ret) {

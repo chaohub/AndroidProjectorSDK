@@ -78,6 +78,7 @@ public class PicoP_Operator {
             case eBTH:
                 break;
             case eUSB:
+                PicoP_Ulog.d(TAG, "Trying to send USB command");
                 ret = UsbPortOperator.sendCmds(binaryCMD)?PicoP_RC.eSUCCESS:PicoP_RC.eFAILURE;
                 break;
             case eRS232:
@@ -149,30 +150,23 @@ public class PicoP_Operator {
 
     public static PicoP_RC waitResult(int sequence){
         PicoP_RC ret = PicoP_RC.eTIMEOUT;
-        int waitCount = 0;
 
-        while (waitCount++ < 3) {
+        mReadThreadt.run();
 
-            PicoP_Ulog.i(TAG, "waitResult... "+waitCount);
-            mReadThreadt.run();
-
-            if (responseMsgmsg.getMsg() != null &&
-                responseMsgmsg.getMsg().length() > 0) {
-                PicoP_Ulog.i(TAG, "seq="+responseMsgmsg.sSeqNum+" exp="+sequence);
-                if (responseMsgmsg.sChecksum &&
-                    sequence == responseMsgmsg.sSeqNum) {
-                    PicoP_Ulog.i(TAG, "Got response");
-                    ret = PicoP_RC.eSUCCESS;
-                    break;
-                } else {
-                    PicoP_Ulog.i(TAG, "Bad response - try again");
-                    responseMsgmsg.clearMsg();
-                }
+        if (responseMsgmsg.getMsg() != null &&
+            responseMsgmsg.getMsg().length() > 0) {
+            PicoP_Ulog.i(TAG, "seq="+responseMsgmsg.sSeqNum+" exp="+sequence);
+            if (responseMsgmsg.sChecksum && sequence == responseMsgmsg.sSeqNum) {
+                PicoP_Ulog.i(TAG, "Got response");
+                ret = PicoP_RC.eSUCCESS;
             } else {
-                PicoP_Ulog.i(TAG, "No response");
-                ret = PicoP_RC.eTIMEOUT;
-                break;
+                PicoP_Ulog.i(TAG, "Bad response - try again");
+                responseMsgmsg.clearMsg();
+                ret = PicoP_RC.eRETRY;
             }
+        } else {
+            PicoP_Ulog.i(TAG, "No response");
+            ret = PicoP_RC.eTIMEOUT;
         }
         return ret;
     }

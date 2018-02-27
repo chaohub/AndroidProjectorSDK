@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,7 +31,7 @@ public class GetEventLog extends Fragment  {
     private int eventNumber = 0;
     private SeekBar mSeekBarEventlogNumber = null;
     private static TextView mTvEventLogNumber, mTvEventLog;
-    private short mProgress = 255;
+    private short mProgress = 1;
 
     public static final int MSG_EVENTLOG_RESPONSE_GET = 90001;
     public static Handler eventlogHandler =  new Handler() {
@@ -83,9 +84,10 @@ public class GetEventLog extends Fragment  {
 
         mSeekBarEventlogNumber = (SeekBar)rootView.findViewById(R.id.fragment_eventlog_seekbar_number);
         mSeekBarEventlogNumber.setOnSeekBarChangeListener(new OnSeekBarChangeListenerImp());
+        mSeekBarEventlogNumber.setOnTouchListener(new OnSeekBarTouchListenerImp());
         mSeekBarEventlogNumber.setEnabled(true);
         mSeekBarEventlogNumber.setMax(255);
-        mSeekBarEventlogNumber.setProgress(255);
+        mSeekBarEventlogNumber.setProgress(1);
 
         return rootView;
     }
@@ -105,7 +107,15 @@ public class GetEventLog extends Fragment  {
         // stop
         public void onStopTrackingTouch(SeekBar seekBar) {
 
-            mProgress = (short)seekBar.getProgress();
+            //mProgress = (short)seekBar.getProgress();
+        }
+    }
+
+    private class OnSeekBarTouchListenerImp implements
+            SeekBar.OnTouchListener {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return true;
         }
     }
 

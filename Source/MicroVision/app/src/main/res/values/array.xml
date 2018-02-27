@@ -2,7 +2,7 @@
 <resources>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item>Funtions</item>
+        <item>Functions</item>
         <item>Brightness</item>
         <item>ColorMode</item>
         <item>KeyStone</item>
@@ -19,6 +19,7 @@
         <item>SystemInfo</item>
         <item>GetEventLog</item>
         <item>Home</item>
+        <item>TestPattern</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -41,5 +42,6 @@
         <item>@drawable/ic_photos</item>
         <item>@drawable/ic_whats_hot</item>
         <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_photos</item>
     </array>
 </resources>

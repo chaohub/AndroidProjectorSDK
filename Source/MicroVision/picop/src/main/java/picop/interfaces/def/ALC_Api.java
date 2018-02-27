@@ -1520,8 +1520,8 @@ public class ALC_Api {
 				|| PicoP_RenderTargetE.invalidRenderTarget(target)
 				|| startPoint.getX_value() >= MAX_HOR_RESOLUTION
 				|| startPoint.getY_value() >= MAX_VER_RESOLUTION
-				|| dimensions.getWidth() >= MAX_HOR_RESOLUTION
-				|| dimensions.getHeight() >= MAX_VER_RESOLUTION
+				|| dimensions.getWidth() > MAX_HOR_RESOLUTION
+				|| dimensions.getHeight() > MAX_VER_RESOLUTION
 				|| PicoP_TestPatternInfoE.invalidTestPattern(pattern)){
 			PicoP_Ulog.e(TAG, PicoP_Ulog._FUNC_() + "Invaild argument.");
 			return PicoP_RC.eINVALID_ARG;
