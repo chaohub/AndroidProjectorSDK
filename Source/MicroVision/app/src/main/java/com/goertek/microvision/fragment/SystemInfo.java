@@ -41,7 +41,7 @@ public class SystemInfo extends Fragment  {
                     int result = b.getInt("result");
                     if (result == 0) {
                         mTvGetSeriesNumber.setText("Serial Number : " + systemInfo.getSerialNumber());
-                        mTvGetSoftwareVersion.setText("Software Version : " + Integer.toHexString(systemInfo.getSoftwareVersion()));
+                        mTvGetSoftwareVersion.setText("Software Version : " + Integer.toString(systemInfo.getSoftwareVersion()));
                         mTvGetFpgaVersion.setText("FPGA Version : " + Integer.toString(systemInfo.getFpgaVersion()));
                     } else {
                         String STR = b.getString("STR");

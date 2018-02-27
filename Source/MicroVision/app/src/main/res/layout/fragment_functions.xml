@@ -290,35 +290,35 @@
         </LinearLayout>
 
 
-        <!--EnumerateDevices-->
-        <LinearLayout
-            android:id="@+id/layout_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="118dp"
-                android:layout_height="wrap_content"
-                android:text="EnumerateDevices" />
-
-            <!--<Button-->
+        <!--&lt;!&ndash;EnumerateDevices&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_10"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:text="set" />-->
+            <!--android:orientation="horizontal">-->
 
-            <Button
-                android:id="@+id/btn_get_EnumerateDevices"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="get" />
+            <!--<TextView-->
+                <!--android:layout_width="118dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="EnumerateDevices" />-->
 
-            <TextView
-                android:id="@+id/fragment_function_enumeratedevices_tv_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
+            <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="set" />&ndash;&gt;-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_get_EnumerateDevices"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="get" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/fragment_function_enumeratedevices_tv_get"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="" />-->
+        <!--</LinearLayout>-->
 
         <!--DisplayInfo-->
         <LinearLayout
@@ -390,7 +390,7 @@
             <TextView
                 android:layout_width="118dp"
                 android:layout_height="wrap_content"
-                android:text="ClearTargert" />
+                android:text="ClearTarget" />
 
             <!--<Button-->
             <!--android:layout_width="wrap_content"-->
@@ -681,35 +681,35 @@
                 android:text="" />
         </LinearLayout>
 
-        <!--UpgradeSoftware-->
-        <LinearLayout
-            android:id="@+id/layout_23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="118dp"
-                android:layout_height="wrap_content"
-                android:text="UpgradeSoftware" />
-
-            <!--<Button-->
+        <!--&lt;!&ndash;UpgradeSoftware&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_23"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:text="set" />-->
+            <!--android:orientation="horizontal">-->
 
-            <Button
-                android:id="@+id/btn_get_UpgradeSoftware"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="get" />
+            <!--<TextView-->
+                <!--android:layout_width="118dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="UpgradeSoftware" />-->
 
-            <TextView
-                android:id="@+id/fragment_function_upgradesoftware_tv_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
+            <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="set" />&ndash;&gt;-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_get_UpgradeSoftware"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="get" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/fragment_function_upgradesoftware_tv_get"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="" />-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/layout_24"
@@ -720,7 +720,7 @@
             <TextView
                 android:layout_width="118dp"
                 android:layout_height="wrap_content"
-                android:text="getTemperatureLoop" />
+                android:text="getTemperature" />
 
             <Button
                 android:id="@+id/btn_get_temperature_loop"

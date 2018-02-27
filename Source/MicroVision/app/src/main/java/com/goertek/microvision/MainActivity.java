@@ -90,15 +90,15 @@ public class MainActivity extends FragmentActivity implements OnItemClickListene
         mContext = this.getApplication();
 
         // For serial port
-        mPicoPHandler = new PicoP_Handle(eRS232);
-        connectionInfo = mPicoPHandler.getConnectInfo();
-        /*connectionInfo.setRS232Info("/dev/ttyS0", 57600);*/
-        connectionInfo.setRS232Info("/dev/ttyMT1", 57600);
+//        mPicoPHandler = new PicoP_Handle(eRS232);
+//        connectionInfo = mPicoPHandler.getConnectInfo();
+//        /*connectionInfo.setRS232Info("/dev/ttyS0", 57600);*/
+//        connectionInfo.setRS232Info("/dev/ttyMT1", 57600);
 
         // For USB port
-        /*mPicoPHandler = new PicoP_Handle(eUSB);
+        mPicoPHandler = new PicoP_Handle(eUSB);
         connectionInfo = mPicoPHandler.getConnectInfo();
-        connectionInfo.setUsbInfo(mContext);*/
+        connectionInfo.setUsbInfo(mContext);
 
         findView();
         if (savedInstanceState == null) {

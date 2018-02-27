@@ -53,7 +53,7 @@ import static com.goertek.microvision.Utils.MSG_GET_DRAWRECTANGLE;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTESTPATTERN;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTEXT;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTRIANGLE;
-import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
+//import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
 import static com.goertek.microvision.Utils.MSG_GET_EVENTLOG;
 import static com.goertek.microvision.Utils.MSG_GET_FLIPSTATE;
 import static com.goertek.microvision.Utils.MSG_GET_GAMMAVAL;
@@ -72,7 +72,7 @@ import static com.goertek.microvision.Utils.MSG_GET_SPLASHSCREENTIMEOUT;
 import static com.goertek.microvision.Utils.MSG_GET_SYSTEMINFO;
 import static com.goertek.microvision.Utils.MSG_GET_SYSTEMSTATUS;
 import static com.goertek.microvision.Utils.MSG_GET_TEXTBOXINFO;
-import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
+//import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
 import static com.goertek.microvision.Utils.MSG_GET_VIEWPORTDISTORTION;
 import static com.goertek.microvision.Utils.MSG_MODIFY_INPUTCAPTUREMODEINFO;
 import static com.goertek.microvision.Utils.MSG_SET_ACTIVECAPTUREMODE;
@@ -514,11 +514,11 @@ public class MessageCenter {
                     Log.i(TAG, "received message to get splashScreenTimeout");
                     break;
                 }
-                case MSG_GET_ENUMERATEDEVICES: {
-                    doGetEnumerateDevices();
-                    Log.i(TAG, "received message to get enumerateDevices");
-                    break;
-                }
+//                case MSG_GET_ENUMERATEDEVICES: {
+//                    doGetEnumerateDevices();
+//                    Log.i(TAG, "received message to get enumerateDevices");
+//                    break;
+//                }
                 case MSG_GET_DISPLAYINFO: {
                     doGetDisplayInfo();
                     Log.i(TAG, "received message to get displayInfo");
@@ -579,13 +579,13 @@ public class MessageCenter {
                     Log.i(TAG, "received message to get restoreFactoryConfig");
                     break;
                 }
-                case MSG_GET_UPGRADESOFTWARE: {
-                    doGetUpgradeSoftware();
-                    Log.i(TAG, "received message to get upgradeSoftware");
-                    break;
-                }
+//                case MSG_GET_UPGRADESOFTWARE: {
+//                    doGetUpgradeSoftware();
+//                    Log.i(TAG, "received message to get upgradeSoftware");
+//                    break;
+//                }
                 case MSG_FUNCTIONS_TEMPERATURE_LOOP_GET: {
-                    doGetTemperatureLoop();
+                    doGetTemperature();
                     Log.i(TAG, "received message to get temperatureLoop");
                     break;
                 }
@@ -606,9 +606,9 @@ public class MessageCenter {
             return false;
         }
         // For serial port
-        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eRS232, connectionInfo);
+//        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eRS232, connectionInfo);
         // For USB port
-        /*ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eUSB, connectionInfo);*/
+        ret = ALC_Api.PicoP_ALC_OpenConnection(mPicoPHandler,PicoP_ConnectionTypeE.eUSB, connectionInfo);
 
         if(PicoP_RC.eSUCCESS!=ret){
             SERIAL_PORT_OPENED = false;
@@ -1344,16 +1344,16 @@ public class MessageCenter {
         msg.setData(b);
         functionsHandler.sendMessage(msg);
     }
-    private static void doGetEnumerateDevices() {
-        RC_FOR_GET = PicoP_RC.eFAILURE;
-        if (SERIAL_PORT_OPENED) {
-            //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
-        } else {
-            if (doInit()) {
-                //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
-            }
-        }
-    }
+//    private static void doGetEnumerateDevices() {
+//        RC_FOR_GET = PicoP_RC.eFAILURE;
+//        if (SERIAL_PORT_OPENED) {
+//            //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
+//        } else {
+//            if (doInit()) {
+//                //RC_FOR_GET = ALC_Api.PicoP_ALC_GetEnumerateDevices(mPicoPHandler);
+//            }
+//        }
+//    }
     private static void doGetDisplayInfo() {
         RC_FOR_GET = PicoP_RC.eFAILURE;
         PicoP_RenderTargetE target = PicoP_RenderTargetE.eOSD_0;
@@ -1608,30 +1608,17 @@ public class MessageCenter {
         }
         doToast(RC_FOR_GET.toString());
     }
-    private static void doGetTemperatureLoop(){
+    private static void doGetTemperature(){
         RC_FOR_GET = PicoP_RC.eFAILURE;
         if(SERIAL_PORT_OPENED){
             RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler,systemStatus);
         } else{
             if(doInit()) {
-                for(int i = 0; systemStatus.getTemperature() <= 60; i++) {
-                    RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler, systemStatus);
-                    Log.i("MessageCenter", "temperature = " + systemStatus.getTemperature());
-                    Log.i("MessageCenter", "i = " + i);
-                    try {
-                        Thread.sleep(2000);
-                    }
-                    catch (Exception e)
-                    {}
-                }
+                RC_FOR_GET = ALC_Api.PicoP_ALC_GetSystemStatus(mPicoPHandler, systemStatus);
+                Log.i("MessageCenter", "temperature = " + systemStatus.getTemperature());
             }
         }
-        Message msg = systemstatusHandler.obtainMessage(MSG_GET_SYSTEMSTATUS_RESPONSE_GET);
-        Bundle b = new Bundle();
-        b.putInt("result", RC_FOR_GET.enumtoInt(RC_FOR_GET));
-        b.putString("STR",RC_FOR_GET.toString());
-        msg.setData(b);
-        systemstatusHandler.sendMessage(msg);
+        doToast(String.valueOf(systemStatus.getTemperature()));
     }
 
     private static int PicoP_RC_To_Int(PicoP_RC ret) {

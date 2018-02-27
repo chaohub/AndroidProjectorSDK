@@ -36,15 +36,17 @@ public class SystemStatus extends Fragment {
                 case MSG_GET_SYSTEMSTATUS_RESPONSE_GET:
                     Bundle b = msg.getData();
                     int result = b.getInt("result");
-                    if (result == 0) {
-                        mTvGetSystemStatus.setText("System status : " + Integer.toString(systemStatus.getStatus()));
-                        mTvGetSystemState.setText("System state : " + Integer.toString(systemStatus.getState()));
-                        mTvGetTemperature.setText("Temperature : " + Float.toString(systemStatus.getTemperature()));
-                    } else {
-                        String STR = b.getString("STR");
-                        mTvGetSystemStatus.setText("fun run failed, errno = " + STR);
-                        mTvGetSystemState.setText("fun run failed, errno = " + STR);
-                        mTvGetTemperature.setText("fun run failed, errno = " + STR);
+                    if (mTvGetSystemStatus != null) {
+                        if (result == 0) {
+                            mTvGetSystemStatus.setText("System status : " + Integer.toString(systemStatus.getStatus()));
+                            mTvGetSystemState.setText("System state : " + Integer.toString(systemStatus.getState()));
+                            mTvGetTemperature.setText("Temperature : " + Float.toString(systemStatus.getTemperature()));
+                        } else {
+                            String STR = b.getString("STR");
+                            mTvGetSystemStatus.setText("fun run failed, errno = " + STR);
+                            mTvGetSystemState.setText("fun run failed, errno = " + STR);
+                            mTvGetTemperature.setText("fun run failed, errno = " + STR);
+                        }
                     }
                     break;
             }

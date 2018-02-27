@@ -26,7 +26,7 @@ import static com.goertek.microvision.Utils.MSG_GET_DRAWRECTANGLE;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTESTPATTERN;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTEXT;
 import static com.goertek.microvision.Utils.MSG_GET_DRAWTRIANGLE;
-import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
+//import static com.goertek.microvision.Utils.MSG_GET_ENUMERATEDEVICES;
 import static com.goertek.microvision.Utils.MSG_GET_FLIPSTATE;
 import static com.goertek.microvision.Utils.MSG_GET_LOADBITMAPIMAGE;
 import static com.goertek.microvision.Utils.MSG_GET_OSDINFO;
@@ -35,7 +35,7 @@ import static com.goertek.microvision.Utils.MSG_GET_RENDER;
 import static com.goertek.microvision.Utils.MSG_RESTOREFACTORYCONFIG;
 import static com.goertek.microvision.Utils.MSG_GET_SPLASHSCREENTIMEOUT;
 import static com.goertek.microvision.Utils.MSG_GET_TEXTBOXINFO;
-import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
+//import static com.goertek.microvision.Utils.MSG_GET_UPGRADESOFTWARE;
 import static com.goertek.microvision.Utils.MSG_GET_VIEWPORTDISTORTION;
 import static com.goertek.microvision.Utils.MSG_SET_ACTIVEOSD;
 import static com.goertek.microvision.Utils.MSG_SET_ASPECTRATIOMODE;
@@ -57,13 +57,15 @@ public class Functions extends Fragment {
     private View rootView;
     private Button mButtonSetViewport, mButtonGetViewport, mButtonSetAspectratio, mButtonGetAspectratio, mButtonSetFlipState, mButtonGatFlipState,
             mButtonSetColorConverter, mButtonGatColorConverter, mButtonSetCommitICM, mButtonGetCommitICM, mButtonSetActiveOSD, mButtonGetActiveOSD, mButtonSetOSDInfo,
-            mButtonGetOSDInfo,mButtonSetOSDState,mButtonGetOSDState,mButtonSetSplash,mButtonGetSplash,mButtonGetEnumerateDevices,mButtonGetDisplayInfo,
+            mButtonGetOSDInfo,mButtonSetOSDState,mButtonGetOSDState,mButtonSetSplash,mButtonGetSplash,mButtonGetDisplayInfo,
             mButtonGetTextBoxInfo,mButtonGetClearTarget,mButtonGetLoadBitmapImage,mButtonGetRender,mButtonGetDrawTestPattern,mButtonGetDrawText,
-            mButtonGetDrawPoint,mButtonGetDrawLine,mButtonGetDrawTriangle,mButtonGetDrawRectangle,mButtonGetRestore,mButtonGetDrawUpgrade,mButtonGetTemperatureLoop;
+            mButtonGetDrawPoint,mButtonGetDrawLine,mButtonGetDrawTriangle,mButtonGetDrawRectangle,mButtonGetRestore,mButtonGetTemperatureLoop;
+//    private Button mButtonGetEnumerateDevices, mButtonGetDrawUpgrade;
     private static TextView mTvViewPort, mTvAspectRatio, mTvFlipState, mTvColorConverter, mTvCommitInputCapture, mTvActiveOSD, mTvOSDInfo, mTvOSDState,
-            mTvSplashScreenTimeout, mTvEnumerateDevices, mTvDisplayInfo, mTvTextBoxInfo, mTvClearTarget, mTvLoadBitmap, mTvRender,
-            mTvDrawTestPattern, mTvDrawText, mTvDrawPoint, mTvFrawLine, mTvDrawTriangle, mTvDrawRectangle, mTvRestoreFactory, mTvUpgradeSoftware,
+            mTvSplashScreenTimeout, mTvDisplayInfo, mTvTextBoxInfo, mTvClearTarget, mTvLoadBitmap, mTvRender,
+            mTvDrawTestPattern, mTvDrawText, mTvDrawPoint, mTvFrawLine, mTvDrawTriangle, mTvDrawRectangle, mTvRestoreFactory,
             mTvTemperatureLoop;
+//    private static mTvEnumerateDevices, mTvUpgradeSoftware;
     public static final int MSG_FUNCTIONS_RESPONSE_GET = 90001;
     public static final int MSG_FUNCTIONS_VIEWPORT_RESPONSE_GET = 90002;
     public static final int MSG_FUNCTIONS_ASPECT_RATIO_RESPONSE_GET = 90003;
@@ -331,8 +333,8 @@ public class Functions extends Fragment {
         mButtonSetSplash.setOnClickListener(btnClickListener);
         mButtonGetSplash = (Button) rootView.findViewById(R.id.btn_get_SplashScreenTimeout);
         mButtonGetSplash.setOnClickListener(btnClickListener);
-        mButtonGetEnumerateDevices = (Button) rootView.findViewById(R.id.btn_get_EnumerateDevices);
-        mButtonGetEnumerateDevices.setOnClickListener(btnClickListener);
+//        mButtonGetEnumerateDevices = (Button) rootView.findViewById(R.id.btn_get_EnumerateDevices);
+//        mButtonGetEnumerateDevices.setOnClickListener(btnClickListener);
         mButtonGetDisplayInfo = (Button) rootView.findViewById(R.id.btn_get_DisplayInfo);
         mButtonGetDisplayInfo.setOnClickListener(btnClickListener);
         mButtonGetTextBoxInfo = (Button) rootView.findViewById(R.id.btn_get_TextBoxInfo);
@@ -357,8 +359,8 @@ public class Functions extends Fragment {
         mButtonGetDrawRectangle.setOnClickListener(btnClickListener);
         mButtonGetRestore = (Button) rootView.findViewById(R.id.btn_get_RestoreFactoryConfig);
         mButtonGetRestore.setOnClickListener(btnClickListener);
-        mButtonGetDrawUpgrade = (Button) rootView.findViewById(R.id.btn_get_UpgradeSoftware);
-        mButtonGetDrawUpgrade.setOnClickListener(btnClickListener);
+//        mButtonGetDrawUpgrade = (Button) rootView.findViewById(R.id.btn_get_UpgradeSoftware);
+//        mButtonGetDrawUpgrade.setOnClickListener(btnClickListener);
         mButtonGetTemperatureLoop = (Button) rootView.findViewById(R.id.btn_get_temperature_loop);
         mButtonGetTemperatureLoop.setOnClickListener(btnClickListener);
 
@@ -380,8 +382,8 @@ public class Functions extends Fragment {
         mTvOSDState.setText("");
         mTvSplashScreenTimeout = (TextView)rootView.findViewById(R.id.fragment_function_splashscreentimeout_tv_get);
         mTvSplashScreenTimeout.setText("");
-        mTvEnumerateDevices = (TextView)rootView.findViewById(R.id.fragment_function_enumeratedevices_tv_get);
-        mTvEnumerateDevices.setText("");
+//        mTvEnumerateDevices = (TextView)rootView.findViewById(R.id.fragment_function_enumeratedevices_tv_get);
+//        mTvEnumerateDevices.setText("");
         mTvDisplayInfo = (TextView)rootView.findViewById(R.id.fragment_function_displayinfo_tv_get);
         mTvDisplayInfo.setText("");
         mTvTextBoxInfo = (TextView)rootView.findViewById(R.id.fragment_function_textboxinfo_tv_get);
@@ -406,8 +408,8 @@ public class Functions extends Fragment {
         mTvDrawRectangle.setText("");
         mTvRestoreFactory = (TextView)rootView.findViewById(R.id.fragment_function_restorefactory_tv_get);
         mTvRestoreFactory.setText("");
-        mTvUpgradeSoftware = (TextView)rootView.findViewById(R.id.fragment_function_upgradesoftware_tv_get);
-        mTvUpgradeSoftware.setText("");
+//        mTvUpgradeSoftware = (TextView)rootView.findViewById(R.id.fragment_function_upgradesoftware_tv_get);
+//        mTvUpgradeSoftware.setText("");
         mTvTemperatureLoop = (TextView)rootView.findViewById(R.id.fragment_function_temperature_loop_tv_get);
         mTvTemperatureLoop.setText("");
 
@@ -543,13 +545,13 @@ public class Functions extends Fragment {
                     messageHandler.sendMessage(msg0);
                     break;
                 }
-                case R.id.btn_get_EnumerateDevices: {
-                    Message msg0 = messageHandler.obtainMessage(MSG_GET_ENUMERATEDEVICES);
-                    Bundle b = new Bundle();
-                    msg0.setData(b);
-                    messageHandler.sendMessage(msg0);
-                    break;
-                }
+//                case R.id.btn_get_EnumerateDevices: {
+//                    Message msg0 = messageHandler.obtainMessage(MSG_GET_ENUMERATEDEVICES);
+//                    Bundle b = new Bundle();
+//                    msg0.setData(b);
+//                    messageHandler.sendMessage(msg0);
+//                    break;
+//                }
                 case R.id.btn_get_DisplayInfo: {
                     Message msg0 = messageHandler.obtainMessage(MSG_GET_DISPLAYINFO);
                     Bundle b = new Bundle();
@@ -634,13 +636,13 @@ public class Functions extends Fragment {
                     messageHandler.sendMessage(msg0);
                     break;
                 }
-                case R.id.btn_get_UpgradeSoftware: {
-                    Message msg0 = messageHandler.obtainMessage(MSG_GET_UPGRADESOFTWARE);
-                    Bundle b = new Bundle();
-                    msg0.setData(b);
-                    messageHandler.sendMessage(msg0);
-                    break;
-                }
+//                case R.id.btn_get_UpgradeSoftware: {
+//                    Message msg0 = messageHandler.obtainMessage(MSG_GET_UPGRADESOFTWARE);
+//                    Bundle b = new Bundle();
+//                    msg0.setData(b);
+//                    messageHandler.sendMessage(msg0);
+//                    break;
+//                }
                 case R.id.btn_get_temperature_loop:{
                     Message msg0 = messageHandler.obtainMessage(MSG_FUNCTIONS_TEMPERATURE_LOOP_GET);
                     Bundle b = new Bundle();
