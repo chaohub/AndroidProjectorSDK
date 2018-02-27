@@ -62,7 +62,7 @@ public class PicoP_ConnectionInfo
         this.PicoP_RS232.setBaudrate(baudrate);
     }
 
-    public void setUsbInfo(Context mContext){
+    public void setConnectionContext(Context mContext){
         this.PicoP_USB.setContext(mContext);
     }
 

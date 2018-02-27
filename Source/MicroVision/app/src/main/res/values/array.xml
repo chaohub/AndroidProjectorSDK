@@ -19,6 +19,7 @@
         <item>SystemInfo</item>
         <item>GetEventLog</item>
         <item>Home</item>
+        <item>TestPattern</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -41,5 +42,6 @@
         <item>@drawable/ic_photos</item>
         <item>@drawable/ic_whats_hot</item>
         <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_photos</item>
     </array>
 </resources>

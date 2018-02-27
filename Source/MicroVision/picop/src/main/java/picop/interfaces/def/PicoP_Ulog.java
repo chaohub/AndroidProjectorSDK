@@ -23,31 +23,31 @@ public class PicoP_Ulog {
 
     public static void v(String tag, String msg){
         if(DEBUG_LOG){
-            Log.v(LOG_TAG,tag + msg);
+            Log.v(LOG_TAG + tag,msg);
         }
     }
 
     public static void d(String tag, String msg){
         if(DEBUG_LOG){
-            Log.d(LOG_TAG,tag + msg);
+            Log.d(LOG_TAG + tag,msg);
         }
     }
 
     public static void i(String tag, String msg){
         if(DEBUG_LOG){
-            Log.i(LOG_TAG,tag + msg);
+            Log.i(LOG_TAG + tag,msg);
         }
     }
 
     public static void w(String tag, String msg){
         if(DEBUG_LOG){
-            Log.w(LOG_TAG,tag + msg);
+            Log.w(LOG_TAG + tag,msg);
         }
     }
 
     public static void e(String tag, String msg){
         if(DEBUG_LOG){
-            Log.e(LOG_TAG,tag + msg);
+            Log.e(LOG_TAG + tag,msg);
         }
     }
 

@@ -16,6 +16,9 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeoutException;
 
 import static picop.interfaces.def.PicoP_Operator.responseMsgmsg;
 
@@ -210,15 +213,38 @@ public class UsbPortOperator implements UsbSerialDriver{
 
     public static int read(byte[] dest, int timeoutMillis) throws IOException {
         if (mEnableAsyncReads) {
+            PicoP_Ulog.d(TAG, "Going to read bytes");
             final UsbRequest request = new UsbRequest();
+            PicoP_Ulog.d(TAG, "Instantiated UsbRequest");
             try {
                 request.initialize(mConnection, mReadEndpoint);
+                PicoP_Ulog.d(TAG, "Innitialized UsbRequest");;
                 final ByteBuffer buf = ByteBuffer.wrap(dest);
+                PicoP_Ulog.d(TAG, "Wrapped Destination in ByteBuffer");
                 if (!request.queue(buf, dest.length)) {
                     throw new IOException("Error queueing request.");
                 }
+                PicoP_Ulog.d(TAG, "Queued request");
+
+                Timer t = new Timer();
+
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        request.cancel();
+                        PicoP_Ulog.d(TAG, "Timer canceled USB request");
+                    }
+                }, 500);
+
+                PicoP_Ulog.d(TAG, "Timer scheduled");
 
                 final UsbRequest response = mConnection.requestWait();
+
+                t.cancel();
+                PicoP_Ulog.d(TAG, "Timer canceled");
+
+                PicoP_Ulog.d(TAG, "Finished requestWait");
+
                 if (response == null) {
                     throw new IOException("Null response");
                 }
@@ -229,7 +255,8 @@ public class UsbPortOperator implements UsbSerialDriver{
                 } else {
                     return 0;
                 }
-            } finally {
+            }
+            finally {
                 if(request != null){
                     request.close();
                 }
@@ -284,24 +311,28 @@ public class UsbPortOperator implements UsbSerialDriver{
                 final byte[] writeBuffer;
 
                 writeLength = Math.min(src.length - offset, mWriteBuffer.length);
-                PicoP_Ulog.e(TAG, "writeLength = " + writeLength);
+                PicoP_Ulog.i(TAG, "writeLength = " + writeLength);
                 if (offset == 0) {
                     writeBuffer = src;
                 } else {
+                    PicoP_Ulog.d(TAG, "Writing with offset by making a copy");
                     // bulkTransfer does not support offsets, make a copy.
                     System.arraycopy(src, offset, mWriteBuffer, 0, writeLength);
                     writeBuffer = mWriteBuffer;
                 }
 
+                String msg = String.format("Going to send %d %d", writeLength, timeoutMillis);
+                PicoP_Ulog.i(TAG, msg);
                 amtWritten = mConnection.bulkTransfer(mWriteEndpoint, writeBuffer, writeLength,
                         timeoutMillis);
             }
             if (amtWritten <= 0) {
-                throw new IOException("Error writing " + writeLength
-                        + " bytes at offset " + offset + " length=" + src.length);
+                throw new IOException("Error writing to endpoint " + mWriteEndpoint.getAddress() + " " + writeLength
+                        + " bytes at offset " + offset + " length=" + src.length + " fd=" + mConnection.getFileDescriptor()
+                        + " bulkTransfer returned " + amtWritten);
             }
 
-            PicoP_Ulog.e(TAG, "Wrote amt=" + amtWritten + " attempted=" + writeLength);
+            PicoP_Ulog.d(TAG, "Wrote to endpoint " + mWriteEndpoint.getAddress() + " amt=" + amtWritten + " attempted=" + writeLength);
 
             offset += amtWritten;
         }
@@ -316,11 +347,12 @@ public class UsbPortOperator implements UsbSerialDriver{
             PicoP_Ulog.e(TAG, "init not finised.");
             return false;
         }
-        PicoP_Ulog.e(TAG, "cmd = " + cmd);
+        PicoP_Ulog.d(TAG, "cmd = " + cmd);
         byte[] mBuffer = hexStringToBytes(cmd);
 
         try {
-            if(write(mBuffer, READ_WAIT_MILLIS) > 0){
+
+            if(write(mBuffer, 100) > 0){
                 result = true;
             } else {
                 result = false;
@@ -336,7 +368,7 @@ public class UsbPortOperator implements UsbSerialDriver{
     private static int tryCount = 0;
     private static boolean stop = false;
     private static Object readLock = new Object();
-    private static final int MAX_TRY_COUNT=400;
+    private static final int MAX_TRY_COUNT=1;
     public static class ReadThread extends Thread {
         private static String response = "";
         private int lenth_header_and_data      = 5;
@@ -347,12 +379,15 @@ public class UsbPortOperator implements UsbSerialDriver{
 
         @Override
         public void run() {
+            PicoP_Ulog.i(TAG, "Running USB read code");
             tryCount = 0;
             fitstPacket = true;
             stop =false;
             synchronized (readLock) {
+                PicoP_Ulog.i(TAG, "Acquired lock");
                 while (isInit && !isInterrupted() && (tryCount < MAX_TRY_COUNT) && !stop) {
                     int size;
+                    PicoP_Ulog.i(TAG, "Trying to read USB");
 
                     try {
                         byte[] readBuf = new byte[MAX_PACKET_SIZE];
@@ -405,16 +440,8 @@ public class UsbPortOperator implements UsbSerialDriver{
                             }
                         }
                     }catch (Exception e){
-                        e.printStackTrace();
+                        PicoP_Ulog.e(TAG, e.getLocalizedMessage());
                     }
-					
-                    //tryCount++;
-					
-                    /*try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
                 }
 				
                 response = "";
