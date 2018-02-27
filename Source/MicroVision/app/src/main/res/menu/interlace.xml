@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/interlace_1"
+        android:showAsAction="never"
+        android:title="eINTERLACE_NONE" />
+    <item
+        android:id="@+id/interlace_2"
+        android:showAsAction="never"
+        android:title="eINTERLACE_EVEN_FIELD" />
+    <item
+        android:id="@+id/interlace_3"
+        android:showAsAction="never"
+        android:title="eINTERLACE_ODD_FIELD" />
+
+
+</menu>
