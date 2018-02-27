@@ -2,16 +2,16 @@
 
 ## Add the JAR to Gradle.build:
 
-'''groovy
+```groovy
 dependencies {
 	// [...]
     compile files('libs/PicoP.jar')
 }
-'''
+```
 
 ## Init connection:
 
-'''java
+```java
 Context appContext = InstrumentationRegistry.getTargetContext();
 
 PicoP_LibraryInfo libraryInfo = new PicoP_LibraryInfo();
@@ -24,11 +24,11 @@ assertEquals(PicoP_RC.eSUCCESS, ret);
 
 ret = ALC_Api.PicoP_ALC_OpenConnection(connectionHandle, PicoP_ConnectionTypeE.eUSB, connectionInfo);
 assertEquals(PicoP_RC.eSUCCESS, ret);
-'''
+```
 
 ## Construct parameters:
 
-''' java
+```java
 PicoP_RenderTargetE target = PicoP_RenderTargetE.eFRAME_BUFFER_0;
 PicoP_Point startPoint = new PicoP_Point();
 startPoint.setPicoP_Point((short)0, (short)0);
@@ -48,10 +48,10 @@ backgroundColor.B = (byte)0x00;
 backgroundColor.A = (byte)0x00;
 
 PicoP_TestPatternInfoE pattern = PicoP_TestPatternInfoE.eCHECKER_BOARD_PATTERN;
-'''
+```
 
 ## Send command:
 
-'''java
+```java
  PicoP_RC result = ALC_Api.PicoP_ALC_DrawTestPattern(connectionHandle, target, startPoint, size, foregroundColor, backgroundColor, pattern);
- '''
+ ```
