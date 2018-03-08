@@ -1,4 +1,4 @@
-package com.goertek.microvision.adapter;
+package com.mvis.apps.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,12 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.goertek.microvision.entity.NavDrawerItem;
-import com.goertek.microvision.R;
+import com.mvis.apps.entity.NavDrawerItem;
+import com.mvis.apps.R;
 import java.util.List;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class NavDrawerListAdapter extends BaseAdapter {

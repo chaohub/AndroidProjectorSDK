@@ -1,4 +1,4 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,14 +11,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.Utils.MSG_FLIP_IMAGE;
-import static com.goertek.microvision.Utils.MSG_SET_INPUTVIDEOSTATE;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.Utils.MSG_FLIP_IMAGE;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class FlipImage extends Fragment {

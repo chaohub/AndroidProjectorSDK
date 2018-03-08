@@ -1,6 +1,6 @@
 # Getting Started
 
-## Add the JAR to Gradle.build:
+## Add Dependency to Gradle.build:
 
 ```groovy
 dependencies {
@@ -9,7 +9,7 @@ dependencies {
 }
 ```
 
-## Init connection:
+## Open Connection:
 
 ```java
 Context appContext = InstrumentationRegistry.getTargetContext();
@@ -19,14 +19,12 @@ PicoP_Handle connectionHandle = new PicoP_Handle(eUSB);
 PicoP_ConnectionInfo connectionInfo = connectionHandle.getConnectInfo();
 connectionInfo.setConnectionContext(appContext);
 
-PicoP_RC ret = ALC_Api.PicoP_ALC_OpenLibrary(connectionHandle);
-assertEquals(PicoP_RC.eSUCCESS, ret);
+PicoP_RC result = ALC_Api.PicoP_ALC_OpenLibrary(connectionHandle);
 
 ret = ALC_Api.PicoP_ALC_OpenConnection(connectionHandle, PicoP_ConnectionTypeE.eUSB, connectionInfo);
-assertEquals(PicoP_RC.eSUCCESS, ret);
 ```
 
-## Construct parameters:
+## Construct Parameters:
 
 ```java
 PicoP_RenderTargetE target = PicoP_RenderTargetE.eFRAME_BUFFER_0;
@@ -50,8 +48,21 @@ backgroundColor.A = (byte)0x00;
 PicoP_TestPatternInfoE pattern = PicoP_TestPatternInfoE.eCHECKER_BOARD_PATTERN;
 ```
 
-## Send command:
+## Send Command:
 
 ```java
  PicoP_RC result = ALC_Api.PicoP_ALC_DrawTestPattern(connectionHandle, target, startPoint, size, foregroundColor, backgroundColor, pattern);
  ```
+
+## Close Connection:
+
+```java
+ PicoP_RC result = PicoP_Operator.CloseConnection(libraryHandle.connectionInfoEx.getConnectionType());
+ ```
+
+
+
+
+# Compatibility:
+- USB OTG enabled devices running Android 7.1+
+- Firefly-RK3399 board running Android 7.1.1

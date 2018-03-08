@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.goertek.microvision">
+    package="com.mvis.apps">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-feature android:name="android.hardware.usb.host"
@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name="UsbStateReceiver"
+        <receiver android:name="com.mvis.apps.UsbStateReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_STATE" />
@@ -21,7 +21,7 @@
                 <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"/>
             </intent-filter>
         </receiver>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mvis.apps.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
