@@ -1,6 +1,6 @@
 # Getting Started
 
-## Add JAR dependency to Gradle.build:
+## Add Dependency to Gradle.build:
 
 ```groovy
 dependencies {
@@ -59,6 +59,8 @@ PicoP_TestPatternInfoE pattern = PicoP_TestPatternInfoE.eCHECKER_BOARD_PATTERN;
 ```java
  PicoP_RC result = PicoP_Operator.CloseConnection(libraryHandle.connectionInfoEx.getConnectionType());
  ```
+
+
 
 
 # Compatibility:
