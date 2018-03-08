@@ -1,6 +1,5 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,16 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
-import static com.goertek.microvision.MainActivity.mContext;
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.MessageCenter.resultData;
-import static com.goertek.microvision.MessageCenter.videoMode;
-import static com.goertek.microvision.Utils.MSG_GET_ACTIVECAPTUREMODE;
-import static com.goertek.microvision.Utils.MSG_SET_ACTIVECAPTUREMODE;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.MessageCenter.resultData;
+import static com.mvis.apps.Utils.MSG_GET_ACTIVECAPTUREMODE;
+import static com.mvis.apps.Utils.MSG_SET_ACTIVECAPTUREMODE;
 
 
 /**

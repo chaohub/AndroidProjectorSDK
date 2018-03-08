@@ -1,4 +1,4 @@
-package com.goertek.microvision;
+package com.mvis.apps;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -12,11 +12,8 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import picop.interfaces.def.PicoP_RC;
-import picop.interfaces.def.PicoP_Ulog;
-
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.Utils.MSG_CLOSE_CONNECTION;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.Utils.MSG_CLOSE_CONNECTION;
 
 /**
  * Created on 2017/5/19.

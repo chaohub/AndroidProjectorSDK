@@ -1,4 +1,4 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,12 +13,12 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.MessageCenter.resultData;
-import static com.goertek.microvision.Utils.MSG_GET_BRIGHTNESS;
-import static com.goertek.microvision.Utils.MSG_SET_BRIGHTNESS;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.MessageCenter.resultData;
+import static com.mvis.apps.Utils.MSG_GET_BRIGHTNESS;
+import static com.mvis.apps.Utils.MSG_SET_BRIGHTNESS;
 
 /**
  * Created on 2017/4/7.

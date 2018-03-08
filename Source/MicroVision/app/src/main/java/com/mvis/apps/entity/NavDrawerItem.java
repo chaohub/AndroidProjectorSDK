@@ -1,4 +1,4 @@
-package com.goertek.microvision.entity;
+package com.mvis.apps.entity;
 
 /**
  * Created on 2017/4/7.

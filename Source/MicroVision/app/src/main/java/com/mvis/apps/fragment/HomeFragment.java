@@ -1,4 +1,4 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
 /**
  * Created on 2017/4/7.

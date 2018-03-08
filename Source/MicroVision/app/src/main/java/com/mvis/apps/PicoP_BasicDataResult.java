@@ -1,4 +1,4 @@
-package com.goertek.microvision;
+package com.mvis.apps;
 
 /**
  * Created on 2017/4/28.
