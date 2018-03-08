@@ -3,7 +3,7 @@
     xmlns:pikolo="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goertek.microvision.fragment.TestPattern">
+    tools:context="com.mvis.apps.fragment.TestPattern">
 
     <LinearLayout
         android:layout_width="match_parent"

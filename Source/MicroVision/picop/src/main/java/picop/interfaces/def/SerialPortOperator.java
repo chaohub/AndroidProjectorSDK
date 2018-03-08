@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import static picop.interfaces.def.PicoP_Operator.responseMsgmsg;
 
 /**
- * Created by carey.wang on 2017/3/23.
+ * Created on 2017/3/23.
  */
 
 public class SerialPortOperator {
@@ -90,7 +90,7 @@ public class SerialPortOperator {
     }
 
     /*
-    *  Note by carey.wang @ 2017.03.29
+    *  Note @ 2017.03.29
     *  For response message, the formate always like below.
     *  Header       (1      byte) --> 0xC0.
     *  Info         (4      byte) --> 0xXX 0xXX 0xXX 0xXX <--the last one means the length of the data.

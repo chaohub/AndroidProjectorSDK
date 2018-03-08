@@ -1,4 +1,4 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,14 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
-import static com.goertek.microvision.MessageCenter.intToColor;
-import static com.goertek.microvision.MessageCenter.intToDirection;
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.MessageCenter.resultData;
-import static com.goertek.microvision.Utils.MSG_GET_COLORALIGNMENT;
-import static com.goertek.microvision.Utils.MSG_SET_COLORALIGNMENT;
+import static com.mvis.apps.MessageCenter.intToColor;
+import static com.mvis.apps.MessageCenter.intToDirection;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.MessageCenter.resultData;
+import static com.mvis.apps.Utils.MSG_GET_COLORALIGNMENT;
+import static com.mvis.apps.Utils.MSG_SET_COLORALIGNMENT;
 
 public class ColorAlignment extends Fragment {
 

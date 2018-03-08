@@ -1,11 +1,8 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
@@ -15,7 +12,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,17 +20,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.Utils.MSG_GET_USBLIST;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.Utils.MSG_GET_USBLIST;
 
 /**
- * Created by louis.yang on 2017/5/5.
+ * Created on 2017/5/5.
  */
 
 public class UsbDebug extends Fragment {
