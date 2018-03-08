@@ -12,7 +12,7 @@ import static picop.interfaces.def.SerialPortOperator.mSerialReadThread;
 import static picop.interfaces.def.UsbPortOperator.mUsbReadThread;
 
 /**
- * Created by carey.wang on 2017/3/30.
+ * Created on 2017/3/30.
  */
 
 public class PicoP_Operator {

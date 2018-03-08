@@ -1,7 +1,7 @@
 package com.goertek.microvision.entity;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class NavDrawerItem {

@@ -26,7 +26,7 @@ import static com.goertek.microvision.Utils.MSG_SET_ACTIVECAPTUREMODE;
 
 
 /**
- * Created by carey.wang on 2017/4/8.
+ * Created on 2017/4/8.
  */
 
 public class ActiveCaptureMode extends Fragment {

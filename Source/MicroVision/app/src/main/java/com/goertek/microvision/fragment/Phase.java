@@ -19,7 +19,7 @@ import static com.goertek.microvision.Utils.MSG_GET_PHASE;
 import static com.goertek.microvision.Utils.MSG_SET_PHASE;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class Phase extends Fragment {

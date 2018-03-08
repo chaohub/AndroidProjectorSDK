@@ -20,7 +20,7 @@ import static com.goertek.microvision.Utils.MSG_GET_KEYSTONE;
 import static com.goertek.microvision.Utils.MSG_SET_KEYSTONE;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class KeyStone extends Fragment {

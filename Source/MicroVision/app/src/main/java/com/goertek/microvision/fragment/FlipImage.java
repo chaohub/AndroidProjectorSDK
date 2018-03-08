@@ -18,7 +18,7 @@ import static com.goertek.microvision.Utils.MSG_FLIP_IMAGE;
 import static com.goertek.microvision.Utils.MSG_SET_INPUTVIDEOSTATE;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class FlipImage extends Fragment {

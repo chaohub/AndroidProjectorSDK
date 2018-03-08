@@ -19,7 +19,7 @@ import static com.goertek.microvision.MessageCenter.messageHandler;
 import static com.goertek.microvision.Utils.MSG_CLOSE_CONNECTION;
 
 /**
- * Created by louis.yang on 2017/5/19.
+ * Created on 2017/5/19.
  */
 
 public class UsbStateReceiver extends BroadcastReceiver {

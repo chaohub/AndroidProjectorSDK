@@ -22,7 +22,7 @@ import static com.goertek.microvision.Utils.MSG_GET_GAMMAVAL;
 import static com.goertek.microvision.Utils.MSG_SET_GAMMAVAL;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class GammaVal extends Fragment  {

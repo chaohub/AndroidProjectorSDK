@@ -5,7 +5,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import java.io.IOException;
 
 /**
- * Created by louis.yang on 2017/5/9.
+ * Created on 2017/5/9.
  */
 
 public interface UsbSerialPort {

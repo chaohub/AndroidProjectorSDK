@@ -19,7 +19,7 @@ import static com.goertek.microvision.Utils.MSG_GET_INPUTVIDEOSTATE;
 import static com.goertek.microvision.Utils.MSG_SET_INPUTVIDEOSTATE;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class InputVideoState extends Fragment  {

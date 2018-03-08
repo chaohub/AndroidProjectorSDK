@@ -21,7 +21,7 @@ import static com.goertek.microvision.Utils.MSG_GET_BRIGHTNESS;
 import static com.goertek.microvision.Utils.MSG_SET_BRIGHTNESS;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class Brightness extends Fragment {

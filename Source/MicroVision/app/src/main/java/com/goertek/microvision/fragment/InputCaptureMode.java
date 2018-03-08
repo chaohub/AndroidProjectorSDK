@@ -24,7 +24,7 @@ import static com.goertek.microvision.Utils.MSG_GET_INPUTCAPTUREMODEINFO;
 import static com.goertek.microvision.Utils.MSG_SET_INPUTCAPTUREMODEINFO;
 
 /**
- * Created by carmindy.li on 2017/4/22.
+ * Created on 2017/4/22.
  */
 
 public class InputCaptureMode extends Fragment {

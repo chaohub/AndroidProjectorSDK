@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.goertek.microvision.R;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class HomeFragment extends Fragment {

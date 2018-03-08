@@ -48,7 +48,7 @@ import static com.goertek.microvision.Utils.MSG_SET_SPLASHSCREENTIMEOUT;
 import static com.goertek.microvision.Utils.MSG_SET_VIEWPORTDISTORTION;
 
 /**
- * Created by carmindy.li on 2017/4/24.
+ * Created on 2017/4/24.
  */
 
 public class Functions extends Fragment {

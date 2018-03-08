@@ -42,7 +42,7 @@ import static picop.interfaces.def.PicoP_ConnectionTypeE.*;
 //import static picop.interfaces.def.PicoP_ConnectionTypeE.eRS232;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class MainActivity extends FragmentActivity implements OnItemClickListener {

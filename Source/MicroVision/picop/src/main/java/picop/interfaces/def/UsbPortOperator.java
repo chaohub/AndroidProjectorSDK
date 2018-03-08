@@ -23,7 +23,7 @@ import java.util.concurrent.TimeoutException;
 import static picop.interfaces.def.PicoP_Operator.responseMsgmsg;
 
 /**
- * Created by louis.yang on 2017/5/5.
+ * Created on 2017/5/5.
  */
 
 public class UsbPortOperator implements UsbSerialDriver{

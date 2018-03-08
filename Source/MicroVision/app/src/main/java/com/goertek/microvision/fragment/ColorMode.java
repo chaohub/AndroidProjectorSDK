@@ -23,7 +23,7 @@ import static com.goertek.microvision.Utils.MSG_GET_COLOR_MODE;
 import static com.goertek.microvision.Utils.MSG_SET_COLOR_MODE;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class ColorMode extends Fragment {

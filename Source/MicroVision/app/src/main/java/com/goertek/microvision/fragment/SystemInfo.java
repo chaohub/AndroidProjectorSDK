@@ -17,7 +17,7 @@ import static com.goertek.microvision.MessageCenter.systemInfo;
 import static com.goertek.microvision.Utils.MSG_GET_SYSTEMINFO;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class SystemInfo extends Fragment  {

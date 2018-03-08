@@ -14,7 +14,7 @@ import com.goertek.microvision.R;
 import java.util.List;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class NavDrawerListAdapter extends BaseAdapter {

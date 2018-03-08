@@ -143,7 +143,7 @@ import static picop.interfaces.def.PicoP_ColorModeE.eCOLOR_MODE_BRILLIANT;
 import static picop.interfaces.def.PicoP_PpcpUtils.MAX_EVENT_LOG;
 
 /**
- * Created by carey.wang on 2017/3/28.
+ * Created on 2017/3/28.
  */
 
 public class MessageCenter {

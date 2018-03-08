@@ -18,7 +18,7 @@ import static com.goertek.microvision.MessageCenter.resultData;
 import static com.goertek.microvision.Utils.MSG_GET_INPUTVIDEOPROPERTIES;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class InputVideoProperties extends Fragment {

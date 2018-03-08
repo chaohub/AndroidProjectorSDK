@@ -1,7 +1,7 @@
 package com.goertek.microvision;
 
 /**
- * Created by carey.wang on 2017/3/28.
+ * Created on 2017/3/28.
  */
 
 public class Utils {

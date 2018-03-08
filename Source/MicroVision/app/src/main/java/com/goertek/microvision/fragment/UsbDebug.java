@@ -34,7 +34,7 @@ import static com.goertek.microvision.MessageCenter.messageHandler;
 import static com.goertek.microvision.Utils.MSG_GET_USBLIST;
 
 /**
- * Created by louis.yang on 2017/5/5.
+ * Created on 2017/5/5.
  */
 
 public class UsbDebug extends Fragment {
