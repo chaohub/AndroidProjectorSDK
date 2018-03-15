@@ -15,7 +15,6 @@ android {
         ndk {
             moduleName "serial_port"
             ldLibs "log"
-            abiFilters "armeabi","armeabi-v7a","x86"
         }
     }
     externalNativeBuild {
