@@ -1,11 +1,10 @@
-package com.goertek.microvision;
+package com.mvis.apps;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 //import android.app.PendingIntent;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,10 +22,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.goertek.microvision.adapter.NavDrawerListAdapter;
-import com.goertek.microvision.entity.NavDrawerItem;
-import com.goertek.microvision.fragment.*;
-import com.squareup.leakcanary.LeakCanary;
+import com.mvis.apps.adapter.NavDrawerListAdapter;
+import com.mvis.apps.entity.NavDrawerItem;
+import com.mvis.apps.fragment.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +34,13 @@ import picop.interfaces.def.PicoP_ConnectionInfo;
 import picop.interfaces.def.PicoP_Handle;
 import picop.interfaces.def.PicoP_LibraryInfo;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.Utils.MSG_CLOSE_CONNECTION;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.Utils.MSG_CLOSE_CONNECTION;
 import static picop.interfaces.def.PicoP_ConnectionTypeE.*;
 //import static picop.interfaces.def.PicoP_ConnectionTypeE.eRS232;
 
 /**
- * Created by carey.wang on 2017/4/7.
+ * Created on 2017/4/7.
  */
 
 public class MainActivity extends FragmentActivity implements OnItemClickListener {

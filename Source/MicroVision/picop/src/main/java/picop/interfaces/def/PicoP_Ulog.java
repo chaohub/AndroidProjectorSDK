@@ -3,7 +3,7 @@ package picop.interfaces.def;
 import android.util.Log;
 
 /**
- * Created by carey.wang on 2017/3/29.
+ * Created on 2017/3/29.
  *
  * We overwrite android log class,
  * in order to disable some useless log in release version.

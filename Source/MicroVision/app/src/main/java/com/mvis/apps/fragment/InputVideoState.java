@@ -1,25 +1,24 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.MessageCenter.resultData;
-import static com.goertek.microvision.Utils.MSG_GET_INPUTVIDEOSTATE;
-import static com.goertek.microvision.Utils.MSG_SET_INPUTVIDEOSTATE;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.MessageCenter.resultData;
+import static com.mvis.apps.Utils.MSG_GET_INPUTVIDEOSTATE;
+import static com.mvis.apps.Utils.MSG_SET_INPUTVIDEOSTATE;
 
 /**
- * Created by carmindy.li on 2017/4/18.
+ * Created on 2017/4/18.
  */
 
 public class InputVideoState extends Fragment  {

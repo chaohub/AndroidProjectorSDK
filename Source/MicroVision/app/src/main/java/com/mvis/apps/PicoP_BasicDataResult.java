@@ -1,7 +1,7 @@
-package com.goertek.microvision;
+package com.mvis.apps;
 
 /**
- * Created by louis.yang on 2017/4/28.
+ * Created on 2017/4/28.
  */
 
 public class PicoP_BasicDataResult {

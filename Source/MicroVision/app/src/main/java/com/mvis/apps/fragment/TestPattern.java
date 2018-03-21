@@ -1,27 +1,23 @@
-package com.goertek.microvision.fragment;
+package com.mvis.apps.fragment;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import android.widget.TextView;
 
-import com.goertek.microvision.R;
+import com.mvis.apps.R;
 
 import picop.interfaces.def.PicoP_TestPatternInfoE;
 
-import static com.goertek.microvision.MessageCenter.messageHandler;
-import static com.goertek.microvision.Utils.MSG_GET_DRAWTESTPATTERN;
+import static com.mvis.apps.MessageCenter.messageHandler;
+import static com.mvis.apps.Utils.MSG_GET_DRAWTESTPATTERN;
 import com.madrapps.pikolo.HSLColorPicker;
 import com.madrapps.pikolo.listeners.SimpleColorSelectionListener;
 

@@ -15,7 +15,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 /**
- * Created by carey.wang on 2017/3/23.
+ * Created on 2017/3/23.
  */
 
 public class SerialPort {
